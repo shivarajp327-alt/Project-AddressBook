@@ -9,7 +9,66 @@
 void listContacts(AddressBook *addressBook) 
 {
     // Sort contacts based on the chosen criteria
-    
+    int choice;
+    printf("Choose sorting criteria:\n");
+    do
+    {
+        printf("1.Sort by name\n");
+        printf("2.Sort by phone number\n");
+        printf("3.Sort by email\n");
+        printf("Enter your choice:");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+                for(int i=0;i<addressBook->contactCount-1;i++)
+                {
+                    for(int j=i+1;j<addressBook->contactCount-1;j++)
+                    {
+                        if(strcmp(addressBook->contacts[j].name,addressBook->contacts[j+1].name)>0)
+                        {
+                            Contact temp=addressBook->contacts[j];
+                            addressBook->contacts[j]=addressBook->contacts[j+1];
+                            addressBook->contacts[j+1]=temp;
+                        }
+                    }
+                }
+                break;
+            case 2:
+                for(int i=0;i<addressBook->contactCount-1;i++)
+                {
+                    for(int j=i+1;j<addressBook->contactCount-1;j++)
+                    {
+                        if(strcmp(addressBook->contacts[j].phone,addressBook->contacts[j+1].phone)>0)
+                        {
+                            Contact temp=addressBook->contacts[j];
+                            addressBook->contacts[j]=addressBook->contacts[j+1];
+                            addressBook->contacts[j+1]=temp;
+                        }
+                    }
+                }
+                break;
+            case 3:
+                for(int i=0;i<addressBook->contactCount-1;i++)
+                {
+                    for(int j=i+1;j<addressBook->contactCount-1;j++)
+                    {
+                        if(strcmp(addressBook->contacts[j].email,addressBook->contacts[j+1].email)>0)
+                        {
+                            Contact temp=addressBook->contacts[j];
+                            addressBook->contacts[j]=addressBook->contacts[j+1];
+                            addressBook->contacts[j+1]=temp;
+                        }
+                    }
+                }
+                break;
+            default:
+                printf("Invalid choice,Please try again\n");
+                break;
+        }
+        /* code */
+    } while (choice>0 && choice<4);
+    return;
 }
 
 void initialize(AddressBook *addressBook) {
@@ -89,6 +148,52 @@ void createContact(AddressBook *addressBook)
 void searchContact(AddressBook *addressBook) 
 {
     /* Define the logic for search */
+    int choice;
+    do
+    {
+    printf("1. Search by name\n");
+    printf("2. Search by phone number\n");  
+    printf("3. Search by email\n");
+    printf("Enter your choice:");
+    scanf("%d",&choice);
+    char search[50];
+    printf("Enter the search term:");
+    scanf("%s", search);
+    switch(choice)
+    {
+        case 1:
+            for(int i=0;addressBook->contactCount;i++)
+            {
+                if(strcmp(addressBook->contacts[i].name,search)==0)
+                {
+                    printf("%s\t%s\t%s\t",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+                    break;
+                }
+            }
+        case 2:
+            for(int i=0;addressBook->contactCount;i++)
+            {
+                if(strcmp(addressBook->contacts[i].phone,search)==0)
+                {
+                    printf("%s\t%s\t%s\t",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+                    break;
+                }
+            }
+        case 3:
+            for(int i=0;addressBook->contactCount;i++)
+            {
+                if(strcmp(addressBook->contacts[i].email,search)==0)
+                {
+                    printf("%s\t%s\t%s\t",addressBook->contacts[i].name,addressBook->contacts[i].phone,addressBook->contacts[i].email);
+                    break;
+                }
+            }
+
+    }
+    }
+    while(choice!=4);
+    return;
+
 }
 
 void editContact(AddressBook *addressBook)
@@ -100,5 +205,71 @@ void editContact(AddressBook *addressBook)
 void deleteContact(AddressBook *addressBook)
 {
 	/* Define the logic for deletecontact */
-   
+    int choice;
+    do
+    {
+        printf("1. Delete by name\n");
+        printf("2. Delete by phone number\n");  
+        printf("3. Delete by email\n");
+        printf("Enter your choice:");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+                char name[50];
+                printf("Enter the name to delete:");
+                scanf("%s", name);
+                for(int i=0;i<addressBook->contactCount;i++)
+                {
+                    if(strcmp(addressBook->contacts[i].name,name)==0)
+                    {
+                        for(int j=i;j<addressBook->contactCount-1;j++)
+                        {
+                            addressBook->contacts[j]=addressBook->contacts[j+1];
+                        }
+                        addressBook->contactCount--;
+                        printf("Contact deleted successfully.\n");
+                        break;
+                    }
+                }
+                break;
+            case 2:
+                char phone[20];
+                printf("Enter the phone number to delete:");
+                scanf("%s", phone);
+                for(int i=0;i<addressBook->contactCount;i++)
+                {
+                    if(strcmp(addressBook->contacts[i].phone,phone)==0)
+                    {
+                        for(int j=i;j<addressBook->contactCount-1;j++)
+                        {
+                            addressBook->contacts[j]=addressBook->contacts[j+1];
+                        }
+                        addressBook->contactCount--;
+                        printf("Contact deleted successfully.\n");
+                        break;
+                    }
+                }
+                break;
+            case 3:
+                char email[50];
+                printf("Enter the email to delete:");
+                scanf("%s", email);
+                for(int i=0;i<addressBook->contactCount;i++)
+                {
+                    if(strcmp(addressBook->contacts[i].email,email)==0)
+                    {
+                        for(int j=i;j<addressBook->contactCount-1;j++)
+                        {
+                            addressBook->contacts[j]=addressBook->contacts[j+1];
+                        }
+                        addressBook->contactCount--;
+                        printf("Contact deleted successfully.\n");
+                        break;
+                    }
+                }
+                break;
+        }
+    } while (choice>0 && choice<4);
+    return;
 }
