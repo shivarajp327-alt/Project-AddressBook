@@ -85,7 +85,7 @@ void listContacts(AddressBook *addressBook)
                 printf("Invalid choice,Please try again\n");
         }
         /* code */
-    } while (choice>0 && choice<4);
+    } while (choice>0 && choice<5);
     return;
 }
 
